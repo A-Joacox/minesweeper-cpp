@@ -42,17 +42,18 @@ public:
         for (int i = 0; i < width; ++i) {
             board[i] = new std::string[length];
             for (int j = 0; j < length; ++j) {
-                board[i][j] = "|  | ";
+                board[i][j] = "|   | ";
             }
         }
     }
 
     void ShowBoard() {
+        std::cout << "\n-----------------------------\n";
         for (int i = 0; i < width; ++i) {
             for (int j = 0; j < len; ++j) {
                 std::cout << board[i][j];
             }
-            std::cout << std::endl;
+            std::cout << "\n-----------------------------\n";
         }
     }
 };
