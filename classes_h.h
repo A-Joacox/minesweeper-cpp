@@ -3,6 +3,7 @@
 #define classes_h
 #include <iostream>
 #include <string>
+#include <vector>
 
 class Mine{
 private:
@@ -54,6 +55,17 @@ public:
                 std::cout << board[i][j];
             }
             std::cout << "\n-----------------------------\n";
+        }
+    }
+    void AddMines(const std::vector<std::vector<int>>& minePositions) {
+        for (const auto& ubi : minePositions) {
+            int x = ubi[0];
+            int y = ubi[1];
+            if (x >= 0 && x < width && y >= 0 && y < len) {
+                board[x][y] = "| X | ";
+            } else {
+                std::cout << "invalid mine position: (" << x << ", " << y << ")\n";
+            }
         }
     }
 };
