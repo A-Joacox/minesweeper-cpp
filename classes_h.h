@@ -4,6 +4,15 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <random>
+#include <set>
+
+int generateRandomNumber(int min, int max) {
+    std::random_device rd;  
+    std::mt19937 gen(rd()); // mt engine, seed is rd
+    std::uniform_int_distribution<> distr(min, max);
+return distr(gen);
+}
 
 class Mine{
 private:
@@ -14,10 +23,18 @@ public:
     Mine(int x, int y){
         this->x = x;
         this->y = y;
+        explode = false;
     }
-    int GetX(){return x;}
-    int GetY(){return y;}
+
+    int GetX() const {return x;}
+    int GetY() const {return y;}
+
+    void NewPosition(int newX, int newY){
+        x = newX;
+        y = newY;
+    }
 };
+
 
 class Board {
 private:
@@ -48,6 +65,9 @@ public:
         }
     }
 
+    int GetWidth() const{return width;}
+    int GetLength() const{return len;}
+
     void ShowBoard() {
         std::cout << "\n-----------------------------\n";
         for (int i = 0; i < width; ++i) {
@@ -68,6 +88,26 @@ public:
             }
         }
     }
+     void CheckDuplicates(std::vector<Mine>& mines) {
+        std::set<std::pair<int, int>> uniquePositions;
+
+        for (auto& mine : mines) {
+            while (true) {
+                auto pos = std::make_pair(mine.GetX(), mine.GetY());
+                if (uniquePositions.find(pos) == uniquePositions.end()) {
+                    uniquePositions.insert(pos);
+                    break;
+                }
+                // If position is a duplicate, generate new random coordinates
+                mine.NewPosition(generateRandomNumber(0, GetWidth() - 1), generateRandomNumber(0, GetLength() - 1));
+            }
+        }
+    }
 };
+
+
+
+
+
 
 #endif
