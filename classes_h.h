@@ -98,16 +98,11 @@ public:
                     uniquePositions.insert(pos);
                     break;
                 }
-                // If position is a duplicate, generate new random coordinates
+                // if position is a duplicate, generate new random coordinates
                 mine.NewPosition(generateRandomNumber(0, GetWidth() - 1), generateRandomNumber(0, GetLength() - 1));
             }
         }
     }
 };
-
-
-
-
-
 
 #endif
