@@ -9,7 +9,7 @@ int main() {
     int boardW = 5, boardL = 5;
     int mineCount = 5;
 
-    
+
     Board gameBoard(boardW, boardL);
     gameBoard.ShowBoard();
 

@@ -1,18 +1,15 @@
 
 #ifndef classes_h
 #define classes_h
+
 #include <iostream>
 #include <string>
 #include <vector>
 #include <random>
 #include <set>
+#include "functions.h"
 
-int generateRandomNumber(int min, int max) {
-    std::random_device rd;  
-    std::mt19937 gen(rd()); // mt engine, seed is rd
-    std::uniform_int_distribution<> distr(min, max);
-return distr(gen);
-}
+
 
 class Mine{
 private:
@@ -40,11 +37,10 @@ class Board {
 private:
     int len;
     int width;
-    bool active;
     std::string** board;
 
 public: 
-    Board(int width = 5, int length = 5) : width(width), len(length), active(true) {
+    Board(int width = 5, int length = 5) : width(width), len(length) {
         CreateBoard(width, length);
     }
 
@@ -69,12 +65,49 @@ public:
     int GetLength() const{return len;}
 
     void ShowBoard() {
-        std::cout << "\n-----------------------------\n";
+        //to create x numbers
+        std::cout << "\n";
+        for (int i = 0; i < width; i++){
+            if (i == 0){
+                std::cout << "    " << i+1 << "     ";
+            }else if (i == width-1) {
+                std::cout << i+1 << "  ";
+            }else{
+                std::cout << i+1 << "     ";
+            }
+        }
+        std::cout << "\n";
+
+        for (int i = 0; i < width; i++) {
+            if (i == 0){
+                std::cout << "  -----";
+            }else{
+                std::cout << "------";
+            }
+        }
+        std::cout << "\n";
+
+        //to show the board itself
         for (int i = 0; i < width; ++i) {
             for (int j = 0; j < len; ++j) {
+                if (j == 0){
+                    std::cout << i+1 << " ";
+                }
                 std::cout << board[i][j];
             }
-            std::cout << "\n-----------------------------\n";
+            std::cout << "\n";
+            //divisions between lines
+            for (int i = 0; i < width; i++){
+                if (i == 0) {
+                    std::cout << "  ";
+                }else if (i == width-1) {
+                    std::cout << "--------";
+                }
+                else{
+                    std::cout << "-------";
+                }
+            }
+            std::cout << "\n";
         }
     }
     void AddMines(const std::vector<std::vector<int>>& minePositions) {
@@ -103,6 +136,7 @@ public:
             }
         }
     }
+    void CheckPosition();
 };
 
 #endif
