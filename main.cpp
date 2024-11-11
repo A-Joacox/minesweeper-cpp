@@ -33,5 +33,24 @@ int main() {
     cout << "\nminas agregadas:\n";
     gameBoard.ShowBoard();
     
+    int x, y;
+    bool gameOver = false;
+    while (!gameOver) {
+        cout << "enter row and column to reveal (e.g., '1 2'): ";
+        cin >> x >> y;
+        x--; y--; // adjust for 0,0 indexing
+
+        if (gameBoard.CheckPosition(x, y)) {
+            cout << "Boom! You hit a mine. Game Over.\n";
+            gameOver = true;
+        } else {
+            gameBoard.RevealCell(x, y);
+            cout << "Safe! Keep going.\n";
+            // TODO: implement to mark the place as safe
+        }
+
+        gameBoard.ShowBoard(); // Show updated board after each turn
+    }
+
 return 0;
 }
