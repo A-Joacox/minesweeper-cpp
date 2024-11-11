@@ -38,6 +38,7 @@ private:
     int len;
     int width;
     std::string** board;
+    std::vector<std::vector<int>> mineCount;
 
 public: 
     Board(int width = 5, int length = 5) : width(width), len(length) {
@@ -53,6 +54,7 @@ public:
 
     void CreateBoard(int width, int length) {
         board = new std::string*[width];
+        mineCount.resize(width, std::vector<int>(length, 0)); // init mine counts
         for (int i = 0; i < width; ++i) {
             board[i] = new std::string[length];
             for (int j = 0; j < length; ++j) {
@@ -116,6 +118,16 @@ public:
             int y = ubi[1];
             if (x >= 0 && x < width && y >= 0 && y < len) {
                 board[x][y] = "| X | ";
+                //update neighboor cells
+                for (int dx = -1; dx <= 1; dx++) {
+                    for (int dy = -1; dy <= 1; dy++) {
+                    int nx = x + dx;
+                    int ny = y + dy;
+                    if ((dx != 0 || dy != 0) && nx >= 0 && nx < width && ny >= 0 && ny < len) {
+                        mineCount[nx][ny]++;
+                        }
+                    }
+                }
             } else {
                 std::cout << "invalid mine position: (" << x << ", " << y << ")\n";
             }
@@ -136,7 +148,33 @@ public:
             }
         }
     }
-    void CheckPosition();
+    bool CheckPosition(int x, int y) {
+    if (x >= 0 && x < width && y >= 0 && y < len) {
+        return board[x][y] == "| X | ";
+        }
+    return false;
+    }
+    void RevealCell(int x, int y) {
+    if (x < 0 || x >= width || y < 0 || y >= len || board[x][y] != "|   | ") {
+        return; // out of bounds or already revealed
+    }
+
+    // if the cell has neighboring mines, display the count
+    if (mineCount[x][y] > 0) {
+        board[x][y] = "| " + std::to_string(mineCount[x][y]) + " | ";
+    } else {
+        board[x][y] = "|   | "; // safe cell with no neighbors
+        // recursively reveal neighboring cells
+        for (int dx = -1; dx <= 1; ++dx) {
+            for (int dy = -1; dy <= 1; ++dy) {
+                if (dx != 0 || dy != 0) {
+                    RevealCell(x + dx, y + dy);
+                }
+            }
+        }
+    }
+}
+
 };
 
 #endif
