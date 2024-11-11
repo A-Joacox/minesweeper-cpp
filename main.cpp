@@ -1,13 +1,10 @@
-#include <iostream>
-#include <random>
-#include <vector>
 #include "classes_h.h"
 
 using namespace std;
 
 int main() {
-    int boardW = 5, boardL = 5;
-    int mineCount = 5;
+    int boardW = 8, boardL = 8;
+    int mineCount = 8;
 
 
     Board gameBoard(boardW, boardL);
@@ -30,27 +27,46 @@ int main() {
 
     //add them to the board
     gameBoard.AddMines(minePositions);
-    cout << "\nminas agregadas:\n";
-    gameBoard.ShowBoard();
     
     int x, y;
     bool gameOver = false;
-    while (!gameOver) {
-        cout << "enter row and column to reveal (e.g., '1 2'): ";
-        cin >> x >> y;
-        x--; y--; // adjust for 0,0 indexing
+    char action = '\0';
 
-        if (gameBoard.CheckPosition(x, y)) {
-            cout << "Boom! You hit a mine. Game Over.\n";
-            gameOver = true;
+    while (!gameOver) {
+        cout << "enter row and column to reveal (e.g., '1 2') or '1 2 f' to flag/unflag: ";
+        cin >> x >> y;
+        x--; 
+        y--; // adjust for 0,0 indexing
+
+        if (cin.peek() == ' '){
+            cin >> action;
         } else {
-            gameBoard.RevealCell(x, y);
-            cout << "Safe! Keep going.\n";
-            // TODO: implement to mark the place as safe
+            action = '\0';
         }
 
-        gameBoard.ShowBoard(); // Show updated board after each turn
-    }
+        if (x < 0 || x >= boardW || y < 0 || y >= boardL) {
+            cout << "Invalid input.\n";
+            cin.clear();
+            // discard invalid input, this from some stack overflow code
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  
+            continue;
+        }
 
+        if (action == 'f') {
+            gameBoard.FlagCell(x, y);
+            cout << "flag at (" << x + 1 << ", " << y + 1 << ").\n";
+            gameBoard.ShowBoard(false);
+
+        } else if (gameBoard.CheckPosition(x, y)) {
+            cout << "Boom! You hit a mine. Game Over.\n";
+            gameBoard.ShowBoard(true); // show all mines on game over
+            gameOver = true;
+            
+        }else {
+            gameBoard.RevealCell(x, y);
+            cout << "Safe! Keep going.\n";
+            gameBoard.ShowBoard(false);
+        }
+    }
 return 0;
 }
