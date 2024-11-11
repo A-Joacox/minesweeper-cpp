@@ -103,11 +103,10 @@ public:
                     std::cout << displayBoard[i][j];
                 }
             }
-            std::cout << "\n";
-            for (int k = 0; k < width; k++) {
-                if (k == 0) std::cout << "  ";
-                else if (k == width - 1) std::cout << "--------";
-                else std::cout << "-------";
+        std::cout << "\n";
+        for (int i = 0; i < width; i++) {
+            if (i == 0) std::cout << "  -----";
+            else std::cout << "------";
             }
             std::cout << "\n";
         }
