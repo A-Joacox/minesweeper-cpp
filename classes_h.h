@@ -1,13 +1,9 @@
-
 #ifndef classes_h
 #define classes_h
-
 #include "functions.h"
 #include <string>
 #include <vector>
-#include <set>
-
-
+#include <set> //for pairs
 
 class Mine{
 private:
@@ -167,7 +163,7 @@ public:
         // if minecount = 0, reveal empty
         displayBoard[x][y] = "| 0 | ";
 
-        // Flood-fill surrounding cells
+        // flood-fill surrounding cells
         for (int dx = -1; dx <= 1; ++dx) {
             for (int dy = -1; dy <= 1; ++dy) {
                 if (dx != 0 || dy != 0) {
@@ -191,6 +187,17 @@ public:
         if (x >= 0 && x < width && y >= 0 && y < len && displayBoard[x][y] == "|   | ") {
             flagged[x][y] = !flagged[x][y]; // toggle flag
         }
+    }
+
+    bool IsUserWin() const {
+        for (int i = 0; i < width; ++i){
+            for (int j = 0; j < len; ++j){
+                if (board[i][j] != "| X | " && displayBoard[i][j] == "|   | ") {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 };
 
