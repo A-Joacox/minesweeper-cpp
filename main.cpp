@@ -47,7 +47,7 @@ int main() {
         if (x < 0 || x >= boardW || y < 0 || y >= boardL) {
             cout << "Invalid input.\n";
             cin.clear();
-            // discard invalid input, this from some stack overflow code
+            // discard invalid input, this is from some stack overflow code
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  
             continue;
         }
@@ -58,14 +58,19 @@ int main() {
             gameBoard.ShowBoard(false);
 
         } else if (gameBoard.CheckPosition(x, y)) {
-            cout << "Boom! You hit a mine. Game Over.\n";
             gameBoard.ShowBoard(true); // show all mines on game over
             gameOver = true;
+            cout << "Boom! You hit a mine. Game Over.\n";
             
         }else {
             gameBoard.RevealCell(x, y);
             cout << "Safe! Keep going.\n";
             gameBoard.ShowBoard(false);
+
+            if (gameBoard.IsUserWin()) {
+                gameOver = true;
+                cout << "Congratulations! You have cleared all safe cells!\n";
+            }
         }
     }
 return 0;
