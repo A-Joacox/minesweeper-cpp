@@ -70,6 +70,7 @@
 This is a minesweeper console and `soon` sfml proyect.
 
 v1: first version of the proyect, bad POO implementation
+
 v2: second version of the proyect, better POO implementation
 
 <!-- GETTING STARTED -->
