@@ -28,8 +28,6 @@
 
   <p align="center">
     Final "Programacion II" university proyect
-    v1: first version of the proyect, bad POO implementation
-    v2: second version of the proyect, better POO implementation
     <br />
     <a href="https://github.com/A-Joacox/minesweeper-cpp"><strong>Explore the docs »</strong></a>
     <br />
@@ -70,6 +68,9 @@
 <!--[![Product Name Screen Shot][product-screenshot]](https://example.com)!-->
 
 This is a minesweeper console and `soon` sfml proyect.
+
+v1: first version of the proyect, bad POO implementation
+v2: second version of the proyect, better POO implementation
 
 <!-- GETTING STARTED -->
 ## Getting Started
