@@ -38,3 +38,28 @@ Win: No
 Played Seconds: 12
 Date: 26/11/2024
 --------------------------
+Name: a
+Win: Yes
+Played Seconds: 0
+Date: 28/11/2024
+--------------------------
+Name: a
+Win: No
+Played Seconds: 14
+Date: 28/11/2024
+--------------------------
+Name: Robot
+Win: No
+Played Seconds: 0
+Date: 30/11/2024
+--------------------------
+Name: Robot
+Win: No
+Played Seconds: 0
+Date: 30/11/2024
+--------------------------
+Name: juan
+Win: No
+Played Seconds: 1
+Date: 30/11/2024
+--------------------------
