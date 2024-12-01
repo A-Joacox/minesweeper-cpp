@@ -137,6 +137,8 @@ public:
             int x = rand() % width;
             int y = rand() % length;
 
+            std::cout << "\nRobot reveals cell at (" << x + 1 << ", " << y + 1 << ")\n";
+
             if (!gameBoard.CheckPosition(x, y) && !gameBoard.IsUserWin()) {
                 gameBoard.RevealCell(x, y);
                 gameBoard.ShowBoard(false);
